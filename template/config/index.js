@@ -1,5 +1,15 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
-var path = require('path')
+var path = require('path'){{#cdn}}
+var packages = [{
+  name: 'vue',
+  var: 'Vue',
+  path: 'dist/vue.runtime.min.js'
+}]{{#router}}
+packages.push({
+  name: 'vue-router',
+  var: 'VueRouter',
+  path: 'dist/vue-router.min.js'
+}){{/router}}{{/cdn}}
 
 module.exports = {
   build: {
@@ -8,18 +18,7 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',{{#cdn}}
-    packages: [
-      {
-        name: 'vue',
-        var: 'Vue',
-        path: 'dist/vue.runtime.min.js'
-      },
-      {
-        name: 'vue-router',
-        var: 'VueRouter',
-        path: 'dist/vue-router.min.js'
-      }
-    ],{{/cdn}}
+    packages: packages,{{/cdn}}
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
